@@ -1,7 +1,7 @@
 // middleware/validateCreateAirplane.js
 const { StatusCodes } = require('http-status-codes');
 const { Airplane } = require('../models'); // Import your Airplane model
-const{ErrorResponse}=require('../utils/common');
+const {AppError} = require('../utils/errors/app-error');
 
 const validateCreateRequest = async (req, res, next) => {
     try {
@@ -12,11 +12,9 @@ const validateCreateRequest = async (req, res, next) => {
         if (existingAirplane) {
             return res
                 .status(StatusCodes.BAD_REQUEST)
-                .json({
-                    message: 'Airplane with the provided model number already exists',
-                    data: {},
-                    success: false
-                })
+                .json(
+                     new AppError('the modelNumber already exists in the database',StatusCodes.BAD_REQUEST)
+                )
             }
         
 
@@ -25,7 +23,7 @@ const validateCreateRequest = async (req, res, next) => {
         if (!modelNumber || !capacity || typeof modelNumber !== 'string' || /^\d+$/.test(modelNumber)||isNaN(capacity) || parseInt(capacity) < 1) {
             return res
             .status(StatusCodes.BAD_REQUEST)
-            .json(ErrorResponse)
+            .json(new AppError('Invalid input, please check again',StatusCodes.BAD_REQUEST))
         }
 
         next();
@@ -38,6 +36,8 @@ const validateCreateRequest = async (req, res, next) => {
         });
     }
 };
+
+
 
 module.exports =
 {

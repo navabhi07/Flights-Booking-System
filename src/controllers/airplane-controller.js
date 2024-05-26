@@ -26,6 +26,11 @@ async function createAirplane(req,res){
     }
 }
 
+/*
+GET:/airplanes
+req-body{}
+ */
+//get list of allairplanes
 async function getAirplanes(req,res){
     try{
          const airplanes=await AirplaneService.getAirplanes();
@@ -40,8 +45,28 @@ async function getAirplanes(req,res){
                   .json(ErrorResponse);
     }
 }
+/*
+GET:/airplanes/:id
+req-body{}
+ */
+//get a single airplane of given id
+async function getAirplane(req,res){
+    try{
+         const airplanes=await AirplaneService.getAirplane(req.params.id);
+         SuccessResponse.data=airplanes;
+         return res
+                  .status(StatusCodes.OK)
+                  .json(SuccessResponse);
+    }catch(error){
+        ErrorResponse.error=error; 
+        return res
+                  .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                  .json(ErrorResponse);
+    }
+}
 
 module.exports={
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }

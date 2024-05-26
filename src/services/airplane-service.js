@@ -6,7 +6,7 @@ const airplaneRepository=new AirplaneRepository();
 const AppError=require('../utils/errors/app-error');
 async function createAirplane(data){
     try{
-        console.log('inside airplane service js')
+       // console.log('inside airplane service js')
         const airplane=await airplaneRepository.create(data);
         return airplane;
     }catch(error){
@@ -30,8 +30,22 @@ async function getAirplanes(){
         throw new AppError('Cannot fetch data of all the airplanes',StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+async function getAirplane(id){
+    try{
+         const airplane=await airplaneRepository.get(id);
+         return airplane;
+    }catch(error){
+        if(error.statusCode==StatusCodes.NOT_FOUND)
+        {
+                throw new AppError('The Airplane you requested is not Found',StatusCodes.NOT_FOUND);
+        }
+        throw new AppError('Cannot fetch data of given id of the airplanes',StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+
 
 module.exports={
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
