@@ -11,10 +11,11 @@ module.exports = {
         table: 'Cities',
         field: 'id'
       },
-      onUpdate: 'CASCADE',
-      onDELETE: 'CASCADE'
+     // onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
      });
   },
+
 
   async down (queryInterface, Sequelize) {
     /**
@@ -27,3 +28,12 @@ module.exports = {
     await queryInterface.removeConstraint('Airports', 'city_fkey_constraint');
   }
 };
+
+
+/**
+
+ * Query to check if constraint has been applied
+
+ * select * from INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = 'airports' AND CONSTRAINT_SCHEMA = 'flights';
+
+ */
