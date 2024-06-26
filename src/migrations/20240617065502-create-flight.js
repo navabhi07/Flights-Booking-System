@@ -19,7 +19,8 @@ module.exports = {
         references:{
           model:'Airplanes',
           key:'id'
-        }
+        },
+        onDelete:'CASCADE'
       },
       departureAirportId: {
         type: Sequelize.STRING,
@@ -27,7 +28,8 @@ module.exports = {
         references:{
           model:'Airports',
           key:'code'
-        }
+        },
+         onDelete:'CASCADE'
       },
       arrivalAirportId: {
         type: Sequelize.STRING,
@@ -35,7 +37,8 @@ module.exports = {
         references:{
           model:'Airports',
           key:'code'
-        }
+        },
+         onDelete:'CASCADE'
       },
       arrivalTime: {
         type: Sequelize.DATE,
