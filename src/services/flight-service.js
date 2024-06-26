@@ -3,11 +3,18 @@ const { StatusCodes } = require('http-status-codes');
 const { FlightRepository } = require('../repositories');
 const AppError = require('../utils/errors/app-error');
 
+const compareTime=require('../utils/helpers/datetime-helpers');
+
 
 const flightRepository = new FlightRepository();
 
 async function createFlight(data) {
     try {
+
+        // if(compareTime(data.departureTime,data.arrivalTime))
+        // {
+        //     throw new AppError('Departure time must be less than arrival time', StatusCodes.BAD_REQUEST);
+        // }
         const flight = await flightRepository.create(data);
         return flight;
     } catch(error) {
