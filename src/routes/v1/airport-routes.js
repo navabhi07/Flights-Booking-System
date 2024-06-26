@@ -12,11 +12,11 @@ router.post('/',
 
 // /api/v1/airports GET
 router.get('/', 
-    AirportController.getAirport);
+    AirportController.getAirports);
 
 // /api/v1/airports/:id GET
 router.get('/:id', 
-    AirportController.getAirports);
+    AirportController.getAirport);
 
 // /api/v1/airports/:id DELETE
 router.delete('/:id', 
