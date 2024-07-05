@@ -111,3 +111,6 @@ module.exports = {
      */
   }
 };
+
+// command that used is
+//npx sequelize db:seed --seed 20240705173637-add-seats.js
